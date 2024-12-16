@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 from pydantic_ai import Agent, RunContext
 from duckduckgo_search import DDGS
-from markdown_pdf import MarkdownPdf
-from markdown_pdf import Section
+
+from simian import utils
 
 load_dotenv()
 
@@ -44,15 +44,8 @@ async def topic_collector(ctx: RunContext[MyDeps], topic: str) -> list[str]:
     return "\n".join(r.data)
 
 
-def pdf_report(topic: str, markdown: str) -> str:
-    pdf = MarkdownPdf()
-    pdf.add_section(Section(markdown))
-    pdf.save(f"{topic}.pdf")
-    return
-
-
-topic = "Ai16z Eliza"
+topic = "Agent Economy Design"
 result = analyst.run_sync(f"Do some research on {topic}", deps=MyDeps(collector))
 markdown = result.data
 
-pdf_report(topic, markdown)
+utils.pdf_report(topic, markdown)

@@ -100,3 +100,6 @@ typings/
 # Temporary folders
 tmp/
 temp/
+
+__pycache__
+pdf
