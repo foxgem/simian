@@ -34,17 +34,20 @@ analyst = Agent(
     You are great at analyzing information.
     Use the 'topic_collector' to gather the latest information on {topic}.
     Analyse these information, the output must be a markdown.
+    Always include the source in the output.
     """,
 )
 
 
 @analyst.tool
 async def topic_collector(ctx: RunContext[MyDeps], topic: str) -> list[str]:
-    r = await ctx.deps.collector.run(f"Please gather information on {topic}")
+    r = await ctx.deps.collector.run(
+        f"Please gather information on {topic}, and include the source in the output."
+    )
     return "\n".join(r.data)
 
 
-topic = "Agent Economy Design"
+topic = "Eliza Agent Framework"
 result = analyst.run_sync(f"Do some research on {topic}", deps=MyDeps(collector))
 markdown = result.data
 
