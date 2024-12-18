@@ -7,3 +7,10 @@ def pdf_report(topic: str, markdown: str) -> str:
     pdf.add_section(Section(markdown))
     pdf.save(f"pdf/{topic}.pdf")
     return
+
+
+def write(name: str, markdown: str, append=False) -> str:
+    mode = "a" if append else "w"
+    with open(f"md/{name}.md", mode) as f:
+        f.write(markdown)
+    return
